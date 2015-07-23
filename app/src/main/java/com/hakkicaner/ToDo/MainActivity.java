@@ -1,15 +1,19 @@
 package com.hakkicaner.ToDo;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.apache.commons.io.FileUtils;
 
@@ -19,6 +23,8 @@ import java.util.ArrayList;
 
 
 public class MainActivity extends ActionBarActivity {
+    private static final String TAG = "MainActivity";
+
     ArrayList<String> items;
     ArrayAdapter<String> itemsAdapter;
     ListView lvItems;
@@ -34,6 +40,7 @@ public class MainActivity extends ActionBarActivity {
                 android.R.layout.simple_list_item_1, items);
         lvItems.setAdapter(itemsAdapter);
         setupListViewListener();
+        showAddButton();
     }
 
     public void onAddItem(View v) {
@@ -42,6 +49,15 @@ public class MainActivity extends ActionBarActivity {
         itemsAdapter.add(itemText);
         etNewItem.setText("");
         writeItems();
+    }
+
+    public void onSaveItem(View v) {
+        EditText etNewItem = (EditText) findViewById(R.id.etNewItem);
+        String itemText = etNewItem.getText().toString();
+        itemsAdapter.add(itemText);
+        etNewItem.setText("");
+        writeItems();
+        showAddButton();
     }
 
     public void setupListViewListener() {
@@ -53,6 +69,19 @@ public class MainActivity extends ActionBarActivity {
                         itemsAdapter.notifyDataSetChanged();
                         writeItems();
                         return true;
+                    }
+                }
+        );
+        lvItems.setOnItemClickListener(
+                new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        EditText etNewItem = (EditText) findViewById(R.id.etNewItem);
+                        etNewItem.setText(items.get(i));
+                        etNewItem.setSelection(etNewItem.getText().length());
+                        items.remove(i);
+                        itemsAdapter.notifyDataSetChanged();
+                        showSaveButton();
                     }
                 }
         );
@@ -76,5 +105,19 @@ public class MainActivity extends ActionBarActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void showSaveButton() {
+        Button add = (Button) findViewById(R.id.btnAddItem);
+        Button save = (Button) findViewById(R.id.btnSaveItem);
+        add.setVisibility(View.GONE);
+        save.setVisibility(View.VISIBLE);
+    }
+
+    private void showAddButton() {
+        Button add = (Button) findViewById(R.id.btnAddItem);
+        Button save = (Button) findViewById(R.id.btnSaveItem);
+        save.setVisibility(View.GONE);
+        add.setVisibility(View.VISIBLE);
     }
 }
