@@ -9,4 +9,4 @@ A simple Android TODO list app
 
 # Video walkthrough
 
-![2Do walkthrough]()
+![2Do walkthrough](https://raw.githubusercontent.com/israkir/2Do/master/2do-walkthrough.gif)
