@@ -46,18 +46,22 @@ public class MainActivity extends ActionBarActivity {
     public void onAddItem(View v) {
         EditText etNewItem = (EditText) findViewById(R.id.etNewItem);
         String itemText = etNewItem.getText().toString();
-        itemsAdapter.add(itemText);
-        etNewItem.setText("");
-        writeItems();
+        if (itemText.length() != 0) {
+            itemsAdapter.add(itemText);
+            etNewItem.setText("");
+            writeItems();
+        }
     }
 
     public void onSaveItem(View v) {
         EditText etNewItem = (EditText) findViewById(R.id.etNewItem);
         String itemText = etNewItem.getText().toString();
-        itemsAdapter.add(itemText);
-        etNewItem.setText("");
-        writeItems();
-        showAddButton();
+        if (itemText.length() != 0) {
+            itemsAdapter.add(itemText);
+            etNewItem.setText("");
+            writeItems();
+            showAddButton();
+        }
     }
 
     public void setupListViewListener() {
