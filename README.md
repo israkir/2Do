@@ -1,11 +1,8 @@
-# 2Do
-A simple Android TODO list app
-
 # Features
 
 - A simple & lightweight user interface
-- Add and remove items
-- Edit an exising item 
+- Add and remove items (long tap to remove an item)
+- Edit an exising item (tap to edit an item)
 
 # Video walkthrough
 
